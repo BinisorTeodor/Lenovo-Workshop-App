@@ -1,4 +1,4 @@
-<div style="background-color: bisque; width: 10rem; border-radius: 5px; opacity: 0.9;">
+<!-- <div style="background-color: bisque; width: 10rem; border-radius: 5px; opacity: 0.9;">
     {{recipe.id}}
     <br><br>
     {{recipe.name}}
@@ -8,4 +8,14 @@
     {{recipe.tags}}
     <br><br>
     {{recipe.prepTimeMinutes}}
+</div> -->
+
+
+<div class="card-container">
+    <div>{{recipe.name | uppercase}}</div>
+    <img [src]="recipe.image" alt="recipe-image">
+    <div> 
+        <b>Preparation time: </b> {{recipe.prepTimeMinutes}} 
+    </div>
+    <button (click)="goToRecipePage()">Tell me more</button>
 </div>

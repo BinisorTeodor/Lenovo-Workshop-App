@@ -1,0 +1,14 @@
+.card-container{
+    background-color: beige;
+    width: 390px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+        width: 180px;
+        height: 180px;
+    }
+}
