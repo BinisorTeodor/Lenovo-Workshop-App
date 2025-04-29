@@ -11,11 +11,18 @@
 </div> -->
 
 
-<div class="card-container">
+<div class="card-container" 
+[ngStyle]="{ 
+    backgroundColor: recipe.prepTimeMinutes >=20 ? 'red' : 'green',
+
+}"
+[ngClass]=" {colorWhite: recipe.difficulty ==='Easy'} "
+>
     <div>{{recipe.name | uppercase}}</div>
     <img [src]="recipe.image" alt="recipe-image">
     <div> 
         <b>Preparation time: </b> {{recipe.prepTimeMinutes}} 
     </div>
+    <div>Difficulty: {{recipe.difficulty}}</div>
     <button (click)="goToRecipePage()">Tell me more</button>
 </div>
