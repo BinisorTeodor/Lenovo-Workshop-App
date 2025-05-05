@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../interfaces/recipe.interface';
@@ -9,7 +9,7 @@ import { Recipe } from '../interfaces/recipe.interface';
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss'
 })
-export class AddRecipeComponent {
+export class AddRecipeComponent{
     binding: any;
 
     localStorageValue: string | null = '';
@@ -23,6 +23,9 @@ export class AddRecipeComponent {
       image: new FormControl('', [Validators.required, Validators.minLength(3)]),
       prepTimeMinutes: new FormControl(0, [Validators.required, Validators.min(0)])
     });
+
+
+    
 
 
     onSubmit() {
@@ -46,6 +49,7 @@ export class AddRecipeComponent {
 
       if(this.addRecipeForm.valid) {
         this.recipeService.addDbRecipes(this.addRecipeForm.value as Omit<Recipe, 'id'>);
+        //this.recipeService.addRecipe(this.addRecipeForm.value as Recipe);
       }
       
     }

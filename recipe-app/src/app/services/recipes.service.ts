@@ -3,6 +3,8 @@ import { Recipe } from '../interfaces/recipe.interface';
 import { HttpClient } from '@angular/common/http';
 import { db } from '../db/db';
 import { id } from '@instantdb/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +37,37 @@ export class RecipesService {
 
   readonly API_URL = 'https://dummyjson.com/recipes';
 
-  constructor(readonly http: HttpClient) {}
+  private recipeSubject = new BehaviorSubject<Recipe[]>(this.recipes)
+  recipes$ = this.recipeSubject.asObservable();
+  
+
+
+
+  constructor(readonly http: HttpClient) {
+    this.subscribeToRecipes();
+  }
+
+
+
+  //HOMEWORK CODE
+
+  private subscribeToRecipes() {
+    db.subscribeQuery({ recipes: {} }, (resp) => {
+      
+      if (resp.data) {
+        this.recipeSubject.next([...resp.data.recipes]);
+        console.log("Subscribed recipes received:", resp.data.recipes);
+      }
+
+    });
+
+
+    
+  }
+  
+  //END OF HOMEWORK CODE
+
+
 
   getAllRecipes() {
     return this.http.get<{recipes: Recipe[]}>(this.API_URL);
@@ -47,8 +79,11 @@ export class RecipesService {
 
   addDbRecipes(recipeInput: Omit<Recipe,'id'>) {
 
+    const newId = id();
+
     db.transact(
       db.tx.recipes[id()].update({
+        id: newId,
         name: recipeInput.name,
         image: recipeInput.image,
         difficulty: recipeInput.difficulty,
@@ -59,5 +94,9 @@ export class RecipesService {
 
     console.log("Succes, the recipe has been added");
   }
+
+  //HOMEWORK CODE
+
+
    
 }

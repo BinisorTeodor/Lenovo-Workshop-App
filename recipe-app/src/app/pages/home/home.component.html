@@ -18,13 +18,20 @@
         <div>No items to displays</div>
         
     } -->
-
-    @for (recipe of dbRecipes; track $index) {
+    
+    @for (recipe of dbRecipes; track recipe.id) {
         <app-recipe-card [recipe] = "recipe"></app-recipe-card>
     } @empty {
         <div>No items to displays</div>
         
     }
+
+
+    <!-- <div *ngFor="let recipe of dbRecipes; let i = index">
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+      </div>
+      
+      <div *ngIf="dbRecipes.length === 0">No items to display</div> -->
 </div>
 
 {{errorMessage}}

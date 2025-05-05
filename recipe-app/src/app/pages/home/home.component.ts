@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, SimpleChanges } from '@angular/core';
 import { RecipeCardComponent } from "../../components/recipe-card/recipe-card.component";
 import { Recipe } from '../../interfaces/recipe.interface';
 import { RecipesService } from '../../services/recipes.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { db } from '../../db/db';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-home',
-  imports: [RecipeCardComponent, FormsModule],
+  imports: [RecipeCardComponent, FormsModule, CommonModule, ButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   recipes: Recipe[] = [];
 
   dummyRecipes!: Recipe[];
@@ -25,7 +28,8 @@ export class HomeComponent {
 
   dbRecipes!: any[];
 
-  constructor(recipesService: RecipesService, readonly router: Router) {
+
+  constructor(private recipesService: RecipesService, readonly router: Router, private cdr:ChangeDetectorRef) {
     this.recipes = recipesService.recipes;
     recipesService.getAllRecipes().subscribe({
       next: (response) => {
@@ -37,18 +41,26 @@ export class HomeComponent {
       }
     })
 
+    
 
-    db.subscribeQuery({ recipes: {} }, (resp) => {
-      if (resp.error) {
-        this.errorMessage = resp.error.message;
-      }
+    // db.subscribeQuery({ recipes: {} }, (resp) => {
+    //   if (resp.error) {
+    //     this.errorMessage = resp.error.message;
+    //   }
 
-      if (resp.data) {
-        this.dbRecipes = resp.data.recipes;;
-      }
+    //   if (resp.data) {
+    //     this.dbRecipes = resp.data.recipes;
+    //   }
 
-    });
+    // });
 
+  }
+
+  ngOnInit() {
+    this.recipesService.recipes$.subscribe((recipes) => {
+      this.dbRecipes=[...recipes];
+      this.cdr.detectChanges();
+    })
   }
 
 
