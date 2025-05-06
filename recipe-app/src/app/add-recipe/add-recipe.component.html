@@ -7,17 +7,33 @@
 
 <form [formGroup]="addRecipeForm" (ngSubmit)="onSubmit()" class="form-container">
     <br>
-    <label >Name</label>
-    <input type="text" formControlName="name">
-    <label >Image URL</label>
-    <input type="text" formControlName="image">
-    <label >Difficulty</label>
-    <input type="text" formControlName="difficulty">
-    <label >Preaparation time</label>
-    <input type="number" formControlName="prepTimeMinutes">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Image URL</mat-label>
+        <input matInput type="text" formControlName="image">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Difficulty</mat-label>
+        <input matInput type="text" formControlName="difficulty">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Preparation time</mat-label>
+        <input matInput type="number" formControlName="prepTimeMinutes">
+    </mat-form-field>
+        
     <br>
-    <button type="submit">Submit</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="addRecipeForm.invalid">Submit</button>
+
 </form>
+
+
+
 
 {{localStorageValue}}
 

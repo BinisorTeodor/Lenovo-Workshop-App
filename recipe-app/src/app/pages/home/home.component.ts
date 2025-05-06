@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { db } from '../../db/db';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+
+
+
 
 @Component({
   selector: 'app-home',
-  imports: [RecipeCardComponent, FormsModule, CommonModule, ButtonModule],
+  imports: [RecipeCardComponent, FormsModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -29,38 +30,32 @@ export class HomeComponent implements OnInit{
   dbRecipes!: any[];
 
 
-  constructor(private recipesService: RecipesService, readonly router: Router, private cdr:ChangeDetectorRef) {
-    this.recipes = recipesService.recipes;
-    recipesService.getAllRecipes().subscribe({
-      next: (response) => {
-        this.dummyRecipes = response.recipes;
-        this.filteredRecipes = response.recipes;
-      },
-      error: (err) => {
-        this.errorMessage = err;
-      }
-    })
 
-    
-
-    // db.subscribeQuery({ recipes: {} }, (resp) => {
-    //   if (resp.error) {
-    //     this.errorMessage = resp.error.message;
-    //   }
-
-    //   if (resp.data) {
-    //     this.dbRecipes = resp.data.recipes;
-    //   }
-
-    // });
-
-  }
+  constructor(private recipesService: RecipesService, readonly router: Router, private cdr:ChangeDetectorRef) {}
 
   ngOnInit() {
+
+    // this.recipes = recipesService.recipes;
+    // recipesService.getAllRecipes().subscribe({
+    //   next: (response) => {
+    //     this.dummyRecipes = response.recipes;
+    //     this.filteredRecipes = response.recipes;
+    //   },
+    //   error: (err) => {
+    //     this.errorMessage = err;
+    //   }
+    // })
+
+
     this.recipesService.recipes$.subscribe((recipes) => {
       this.dbRecipes=[...recipes];
       this.cdr.detectChanges();
     })
+  }
+
+
+  ngOnDestroy() {
+     //db.unsubscribe();
   }
 
 

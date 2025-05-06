@@ -11,7 +11,7 @@
 </div> -->
 
 
-<div class="card-container" 
+<!-- <div class="card-container" 
 [ngStyle]="{ 
     backgroundColor: recipe.prepTimeMinutes >=20 ? 'red' : 'green',
 
@@ -26,3 +26,30 @@
     <div>Difficulty: {{recipe.difficulty}}</div>
     <button (click)="goToRecipePage()">Tell me more</button>
 </div>
+
+
+//--------------------- -->
+
+<mat-card [ngStyle]="{ 
+    backgroundColor: recipe.prepTimeMinutes >=20 ? 'red' : 'green',
+
+}"
+[ngClass]=" {colorWhite: recipe.difficulty ==='Easy'} " class="example-card" appearance="outlined">
+    <mat-card-header>
+      
+      <mat-card-title><div>{{recipe.name | uppercase}}</div></mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="recipe.image" alt="recipe-image">
+    <mat-card-content>
+      <p>
+        <b>Preparation time: </b> {{recipe.prepTimeMinutes}} 
+      </p>
+
+      <p>
+        Difficulty: {{recipe.difficulty}} 
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="goToRecipePage()">Tell me more</button>
+    </mat-card-actions>
+  </mat-card>

@@ -8,6 +8,7 @@
 </div>
 {{ searchValue }}
 
+
 <div class="card-container">
     <!-- <app-recipe-card [recipe] = "recipes[0]"></app-recipe-card>
     <app-recipe-card [recipe] = "recipes[1]"></app-recipe-card>
@@ -18,6 +19,8 @@
         <div>No items to displays</div>
         
     } -->
+    
+    
     
     @for (recipe of dbRecipes; track recipe.id) {
         <app-recipe-card [recipe] = "recipe"></app-recipe-card>

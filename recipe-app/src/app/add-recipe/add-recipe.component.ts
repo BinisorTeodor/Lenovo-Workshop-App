@@ -3,9 +3,14 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../interfaces/recipe.interface';
 
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+
 @Component({
   selector: 'app-add-recipe',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatButtonModule],
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss'
 })
